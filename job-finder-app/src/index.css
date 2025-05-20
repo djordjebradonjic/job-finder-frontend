@@ -1,0 +1,32 @@
+.card{
+    background-color: rgb(208, 213, 211);
+    padding-left: 10px;
+    display: flex;
+    width: 90%;
+    align-items: center;
+    margin: 4px;
+    border-radius: 10px;
+
+}
+
+#line {
+ margin-left: auto;
+    padding-right: 10px;
+}
+
+i{
+    margin-right: 15px;
+}
+
+header{
+    align-items: center;
+    display: flex;
+    margin: 5px;
+    padding: 2px;
+   
+}
+
+input{
+    background-color: rgb(232, 234, 234);
+    
+}
