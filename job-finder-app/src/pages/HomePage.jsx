@@ -24,7 +24,7 @@ function HomePage(){
     return (
         <div className="p-4">
          <h1 className="text-2xl mb-4">Job Finder</h1>
-         <FilterBar filters={filters} setFilters={setFilters} onSearch={fetchJobs} />
+             <FilterBar filters={filters} setFilters={setFilters} onSearch={fetchJobs} />
          {jobs.map(job => (
             <JobCard key={job.id} job={job} onFavorite={handleFavorite} />
           ))}
