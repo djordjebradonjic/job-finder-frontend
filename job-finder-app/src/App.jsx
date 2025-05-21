@@ -1,4 +1,4 @@
-import Favorites from "/.pages/Favorites"
+import Favorites from "./pages/Favorites"
 import HomePage from "./pages/HomePage"
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 

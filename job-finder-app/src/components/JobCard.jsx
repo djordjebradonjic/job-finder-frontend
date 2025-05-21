@@ -1,6 +1,6 @@
 import React from 'react'
 
-function JobCard({job,onFavorite}){
+function JobCard({job}){
 
     return (
         
@@ -8,7 +8,7 @@ function JobCard({job,onFavorite}){
           <h2 className="text-xl font-bold">{job.title}</h2>
           <p>{job.company}</p>
               <p>{job.location}</p>
-              <button onClick={() => onFavorite(job)}>Add to Favorites</button>
+              
        </div>
         
     );
