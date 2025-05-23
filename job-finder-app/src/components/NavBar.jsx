@@ -1,6 +1,6 @@
 import React  from "react";
 
-function NavBar(){
+function NavBar({ onSiteSelect }){
 
     const navbarItems= [
         {label:"HelloWorld" , value:"HelloWorld"},

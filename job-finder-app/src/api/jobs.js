@@ -1,9 +1,7 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:8080/web-scraper/infoStud' 
-
-export const getAllJobs = async () =>{
-    const response =  await axios.get(BASE_URL);
+export const fetchJobs = async (url) =>{
+    const response =  await axios.get( url);
     return response.data;
 }
     
