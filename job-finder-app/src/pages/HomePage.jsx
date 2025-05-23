@@ -3,6 +3,7 @@ import JobCard from "../components/JobCard";
 import FilterBar from "../components/FilterBar";
 import { fetchJobs } from "../api/jobs";
 import NavBar from "../components/NavBar";
+import JobDetailsModel from "../components/JobDetailsModal";
 
 function HomePage() {
   const [selectedSite, setSelectedSite] = useState("HelloWorld");
@@ -10,6 +11,9 @@ function HomePage() {
   const [jobs, setJobs] = useState([]);
   const [filters, setFilters] = useState({ title: "", location: "" });
   const [loading, setLoading] = useState(true);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeNavBarItem, setActiveNavBarItem] = useState(null);
 
   useEffect(() => {
     const fetchBySource = async (source) => {
@@ -31,9 +35,25 @@ function HomePage() {
 
   if (loading) return <p>Loading jobs...</p>;
 
+  function openModal(job) {
+    setSelectedJob(job);
+    setIsModalOpen(true);
+  }
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedJob(null);
+  }
+  const handleSiteSelect = (value) => {
+    setSelectedSite(value);
+    setActiveNavBarItem(value);
+  };
+
   return (
     <div className="p-4 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 max-w-5xl mx-auto px-8 py-6">
-      <NavBar onSiteSelect={setSelectedSite}></NavBar>
+      <NavBar
+        activeNavBarItem={activeNavBarItem}
+        onSiteSelect={handleSiteSelect}
+      ></NavBar>
       <h1 className="text-2xl font-bold mb-4 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
         All jobs{" "}
       </h1>
@@ -41,7 +61,15 @@ function HomePage() {
       {jobs.length === 0 ? (
         <p>No available jobs </p>
       ) : (
-        jobs.map((job) => <JobCard key={job.id} job={job} />)
+        jobs.map((job) => (
+          <JobCard key={job.id} job={job} onClick={() => openModal(job)} />
+        ))
+      )}
+      {isModalOpen && (
+        <JobDetailsModel
+          job={selectedJob}
+          onClose={closeModal}
+        ></JobDetailsModel>
       )}
     </div>
   );
