@@ -2,6 +2,7 @@ import { useState , useEffect } from "react";
 import JobCard  from "../components/JobCard";
 import FilterBar from "../components/FilterBar";
 import {getAllJobs} from "../api/jobs"
+import NavBar from "../components/NavBar";
 
 function HomePage(){
 
@@ -30,6 +31,7 @@ function HomePage(){
 
     return (
         <div className="p-4 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 max-w-5xl mx-auto px-8 py-6">
+            <NavBar></NavBar>
              <h1 className="text-2xl font-bold mb-4 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">All jobs </h1>
              {jobs.length === 0 ? (
              <p>No available jobs </p>
