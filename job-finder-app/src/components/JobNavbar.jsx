@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function NavBar({ onSiteSelect, activeNavBarItem }) {
+function JobNavBar({ onSiteSelect, activeNavBarItem }) {
   const navbarItems = [
     { label: "HelloWorld", value: "HelloWorld" },
     { label: "InfoStud", value: "InfoStud" },
@@ -33,4 +33,4 @@ function NavBar({ onSiteSelect, activeNavBarItem }) {
   );
 }
 
-export default NavBar;
+export default JobNavBar;
