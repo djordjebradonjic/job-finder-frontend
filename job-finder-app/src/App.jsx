@@ -1,4 +1,4 @@
-import Favorites from "./pages/FavoritesPage";
+import FavoritesPage from "./pages/FavoritesPage";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainNavBar from "./components/MainNavBar";
@@ -11,7 +11,7 @@ function App() {
       <MainNavBar></MainNavBar>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/favorites" element={<Favorites />}></Route>
+        <Route path="/favorites" element={<FavoritesPage />}></Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>

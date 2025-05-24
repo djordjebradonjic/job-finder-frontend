@@ -14,6 +14,12 @@ function HomePage() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeNavBarItem, setActiveNavBarItem] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(savedFavorites);
+  }, []);
 
   useEffect(() => {
     const fetchBySource = async (source) => {
@@ -62,7 +68,13 @@ function HomePage() {
         <p>No available jobs </p>
       ) : (
         jobs.map((job) => (
-          <JobCard key={job.id} job={job} onClick={() => openModal(job)} />
+          <JobCard
+            key={job.id}
+            job={job}
+            favorites={favorites}
+            setFavorites={setFavorites}
+            onClick={() => openModal(job)}
+          />
         ))
       )}
       {isModalOpen && (
