@@ -1,9 +1,9 @@
-import Favorites from "./pages/Favorites";
+import Favorites from "./pages/FavoritesPage";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainNavBar from "./components/MainNavBar";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/favorites" element={<Favorites />}></Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </Router>
   );

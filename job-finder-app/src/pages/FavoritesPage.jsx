@@ -1,14 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-function Favorites(){
-
-   return (
+function FavoritesPage() {
+  return (
     <div>
       <h1>Favorites</h1>
     </div>
-   );
-
+  );
 }
 
-export default Favorites
+export default FavoritesPage;
