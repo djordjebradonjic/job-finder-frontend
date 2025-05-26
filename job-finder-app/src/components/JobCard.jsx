@@ -44,7 +44,7 @@ function JobCard({ job, onClick, favorites, setFavorites }) {
       </p>
       <p className="text-gray-600">
         <span className="font-medium text-gray-700">Date:</span>{" "}
-        {job.expirationDate}
+        {job.details?.expirationDate}
       </p>
     </div>
   );

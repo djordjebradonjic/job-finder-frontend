@@ -15,6 +15,18 @@ function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeNavBarItem, setActiveNavBarItem] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const jobsPerPage = 5;
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+  useEffect(() => {
+    if (jobs.length > 0) {
+      setTotalPages(Math.ceil(jobs.length / jobsPerPage));
+    }
+  }, [jobs, jobsPerPage]);
 
   useEffect(() => {
     const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -64,10 +76,10 @@ function HomePage() {
         All jobs{" "}
       </h1>
       {console.log("Jobs:", jobs)}
-      {jobs.length === 0 ? (
+      {currentJobs.length === 0 ? (
         <p>No available jobs </p>
       ) : (
-        jobs.map((job) => (
+        currentJobs.map((job) => (
           <JobCard
             key={job.id}
             job={job}
@@ -83,6 +95,25 @@ function HomePage() {
           onClose={closeModal}
         ></JobDetailsModel>
       )}
+      <div className="flex justify-center mt-4 gap-2">
+        <button
+          onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
+          disabled={currentPage === 1}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="px-3 py-1">{currentPage}</span>
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
+          }
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
