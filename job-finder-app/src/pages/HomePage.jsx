@@ -41,13 +41,20 @@ function HomePage() {
           "http://localhost:8080/api/jobs/fetchBySource/" + source
         );
         setJobs(data);
+        localStorage.setItem(`cachedJobs_${source}`, JSON.stringify(data));
       } catch (error) {
         console.error("Fetching data error:", error);
+
+        const cachedJobs = localStorage.getItem(`cachedJobs_${source}`);
+        if (cachedJobs) {
+          setJobs(JSON.parse(cachedJobs));
+        } else {
+          setJobs([]);
+        }
       } finally {
         setLoading(false);
       }
     };
-
     fetchBySource(selectedSite);
   }, [selectedSite]);
 
