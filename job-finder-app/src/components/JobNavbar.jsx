@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function JobNavBar({ onSiteSelect, activeNavBarItem }) {
+function JobNavBar({ onSiteSelect, activeNavBarItem, setActiveNavBarItem }) {
   const navbarItems = [
     { label: "HelloWorld", value: "HelloWorld" },
     { label: "InfoStud", value: "InfoStud" },

@@ -71,6 +71,7 @@ function HomePage() {
       <JobNavBar
         activeNavBarItem={activeNavBarItem}
         onSiteSelect={handleSiteSelect}
+        setActiveNavBarItem={setActiveNavBarItem}
       ></JobNavBar>
       <h1 className="text-2xl font-bold mb-4 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
         All jobs{" "}
