@@ -15,11 +15,23 @@ function JobCard({ job, onClick, favorites, setFavorites }) {
     }
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); //to prevent deleting favorites after refreshing page
   };
+
+  const isNew = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const now = new Date();
+    const hoursDifference = (now - createdDate) / (1000 * 60 * 60);
+    return hoursDifference < 24;
+  };
   return (
     <div
       onClick={onClick}
-      className="bg-white relative rounded-2xl shadow-md p-6 mb-4 hover:shadow-lg transition-shadow duration-300"
+      className="cursor-pointer bg-white relative rounded-2xl shadow-md p-6 mb-4 hover:shadow-lg transition-shadow duration-300"
     >
+      {isNew(job.createdAt) && (
+        <div className="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-br-md">
+          NOVO
+        </div>
+      )}
       <div
         className="absolute top-4 right-4 cursor-pointer text-xl"
         onClick={(e) => {
@@ -44,7 +56,6 @@ function JobCard({ job, onClick, favorites, setFavorites }) {
       </p>
       <p className="text-gray-600">
         <span className="font-medium text-gray-700">Date:</span>{" "}
-        {job.details?.expirationDate}
       </p>
     </div>
   );

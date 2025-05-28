@@ -19,7 +19,7 @@ function JobNavBar({ onSiteSelect, activeNavBarItem, setActiveNavBarItem }) {
               onSiteSelect(item.value);
               setActiveNavBarItem(item.value);
             }}
-            className={`text-center w-full rounded-md transition duration-300 ${
+            className={` cursor-pointer text-center w-full rounded-md transition duration-300 ${
               activeNavBarItem === item.value
                 ? "bg-gray-500 text-white"
                 : "bg-gray-300 hover:bg-gray-400"

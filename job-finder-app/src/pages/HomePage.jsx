@@ -18,7 +18,7 @@ function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const jobsPerPage = 5;
+  const jobsPerPage = 7;
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
@@ -37,14 +37,18 @@ function HomePage() {
     const fetchBySource = async (source) => {
       try {
         setLoading(true);
+        setJobs([]);
         const data = await fetchJobs(
           "http://localhost:8080/api/jobs/fetchBySource/" + source
         );
-        setJobs(data);
+        const sortedData = data.sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+        setJobs(sortedData);
+
         localStorage.setItem(`cachedJobs_${source}`, JSON.stringify(data));
       } catch (error) {
         console.error("Fetching data error:", error);
-
         const cachedJobs = localStorage.getItem(`cachedJobs_${source}`);
         if (cachedJobs) {
           setJobs(JSON.parse(cachedJobs));
@@ -107,7 +111,7 @@ function HomePage() {
         <button
           onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
           disabled={currentPage === 1}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="cursor-pointer px-3 py-1 border rounded disabled:opacity-50"
         >
           Previous
         </button>
@@ -117,7 +121,7 @@ function HomePage() {
             setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
           }
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="cursor-pointer px-3 py-1 border rounded disabled:opacity-50"
         >
           Next
         </button>
