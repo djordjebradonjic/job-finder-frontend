@@ -20,7 +20,7 @@ function JobCard({ job, onClick, favorites, setFavorites }) {
     const createdDate = new Date(createdAt);
     const now = new Date();
     const hoursDifference = (now - createdDate) / (1000 * 60 * 60);
-    return hoursDifference < 24;
+    return hoursDifference < 3;
   };
   return (
     <div
