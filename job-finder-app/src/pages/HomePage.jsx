@@ -38,9 +38,7 @@ function HomePage() {
       try {
         setLoading(true);
         setJobs([]);
-        const data = await fetchJobs(
-          "http://localhost:8080/api/jobs/fetchBySource/" + source
-        );
+        const data = await fetchJobs("/api/jobs/fetchBySource/" + source);
         const sortedData = data.sort(
           (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );

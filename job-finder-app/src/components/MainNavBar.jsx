@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 
 function MainNavBar() {
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = !!localStorage.getItem("jwtToken");
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwtToken");
     navigate("/login");
   };
 

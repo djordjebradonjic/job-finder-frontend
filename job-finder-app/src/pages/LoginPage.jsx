@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react";
 
@@ -14,6 +14,7 @@ function LoginPage() {
         username,
         password,
       });
+      localStorage.setItem("jwtToken", response.data.token);
 
       if (response.data === "Fail") {
         alert("Invalid credentials");
@@ -28,34 +29,44 @@ function LoginPage() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-sm mx-auto p-4 border rounded mt-10 shadow"
-    >
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        className="w-full p-2 mb-3 border rounded"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 mb-3 border rounded"
-        required
-      />
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-800"
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-sm mx-auto p-4 border rounded mt-10 shadow"
       >
-        Login
-      </button>
-    </form>
+        <h2>Login</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full p-2 mb-3 border rounded"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-2 mb-3 border rounded"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-800"
+        >
+          Login
+        </button>
+      </form>
+      <div className="max-w-sm mx-auto mt-4 text-center">
+        <p>
+          Don't have an account?{" "}
+          <Link to="/register" className="text-blue-600 hover:underline">
+            Register here
+          </Link>
+        </p>
+      </div>
+    </>
   );
 }
 
