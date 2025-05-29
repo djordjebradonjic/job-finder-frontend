@@ -14,7 +14,8 @@ function LoginPage() {
         username,
         password,
       });
-      localStorage.setItem("jwtToken", response.data.token);
+      localStorage.setItem("jwtToken", response.data);
+      console.log("---------JWT TOKEN IS : ", localStorage.getItem("jwtToken"));
 
       if (response.data === "Fail") {
         alert("Invalid credentials");
