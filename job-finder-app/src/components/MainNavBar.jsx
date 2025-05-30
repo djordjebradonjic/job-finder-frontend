@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function MainNavBar() {
-  const isLoggedIn = !!localStorage.getItem("jwtToken");
+  const { logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("jwtToken");
-    navigate("/login");
+    logout();
+    // navigate("/login");
   };
 
   return (
@@ -21,7 +22,7 @@ function MainNavBar() {
         </div>
 
         <div className=" flex items-center gap-4">
-          {isLoggedIn ? (
+          {isAuthenticated ? (
             <button
               onClick={handleLogout}
               className=" cursor-pointer hover:underline"

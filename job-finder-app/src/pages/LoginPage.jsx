@@ -1,11 +1,13 @@
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,13 +16,16 @@ function LoginPage() {
         username,
         password,
       });
-      localStorage.setItem("jwtToken", response.data);
-      console.log("---------JWT TOKEN IS : ", localStorage.getItem("jwtToken"));
 
       if (response.data === "Fail") {
         alert("Invalid credentials");
       } else {
-        localStorage.setItem("token", response.data);
+        login(response.data);
+        console.log(
+          "---------JWT TOKEN IS : ",
+          localStorage.getItem("jwtToken")
+        );
+
         navigate("/");
       }
     } catch (error) {
