@@ -25,7 +25,9 @@ function JobCard({ job, onClick, favorites, setFavorites }) {
   return (
     <div
       onClick={onClick}
-      className="cursor-pointer bg-white relative rounded-2xl shadow-md p-6 mb-4 hover:shadow-lg transition-shadow duration-300"
+      className="cursor-pointer bg-white relative rounded-2xl shadow-md p-6 mb-4 
+        hover:shadow-lg transition-shadow duration-300 
+        dark:bg-gray-100/10 dark:text-gray-100"
     >
       {isNew(job.createdAt) && (
         <div className="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-br-md">
@@ -45,17 +47,25 @@ function JobCard({ job, onClick, favorites, setFavorites }) {
           <FaHeart className="text-gray-400 hover:text-red-500 transition-colors" />
         )}
       </div>
-      <h2 className="text-2xl font-semibold text-gray-800 mb-2">{job.title}</h2>
-      <p className="text-gray-600 mb-1">
-        <span className="font-medium text-gray-700">Company:</span>{" "}
+      <h2 className="text-2xl font-semibold text-gray-800 mb-2 dark:text-gray-100">
+        {job.title}
+      </h2>
+      <p className="text-gray-600 mb-1 dark:text-gray-300">
+        <span className="font-medium text-gray-700 dark:text-gray-200">
+          Company:
+        </span>{" "}
         {job.company.name}
       </p>
-      <p className="text-gray-600">
-        <span className="font-medium text-gray-700">Location:</span>{" "}
+      <p className="text-gray-600 dark:text-gray-300">
+        <span className="font-medium text-gray-700 dark:text-gray-200">
+          Location:
+        </span>{" "}
         {job.details.location}
       </p>
-      <p className="text-gray-600">
-        <span className="font-medium text-gray-700">Date:</span>{" "}
+      <p className="text-gray-600 dark:text-gray-300">
+        <span className="font-medium text-gray-700 dark:text-gray-200">
+          Date:
+        </span>{" "}
       </p>
     </div>
   );

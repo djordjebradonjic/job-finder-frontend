@@ -76,14 +76,24 @@ function HomePage() {
   };
 
   return (
-    <div className="p-4 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 max-w-5xl mx-auto px-8 py-6">
+    <div
+      className="p-4 max-w-5xl mx-auto px-8 py-6
+  bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300
+  dark:from-gray-900 dark:via-gray-800 dark:to-gray-700
+  text-black dark:text-white transition-colors duration-300"
+    >
       <JobNavBar
         activeNavBarItem={activeNavBarItem}
         onSiteSelect={handleSiteSelect}
         setActiveNavBarItem={setActiveNavBarItem}
       ></JobNavBar>
-      <h1 className="text-2xl font-bold mb-4 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-        All jobs{" "}
+      <h1
+        className="text-2xl font-bold mb-4 
+  bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 
+  dark:from-gray-900 dark:via-gray-800 dark:to-gray-700
+  transition-colors duration-300"
+      >
+        All jobs
       </h1>
       {console.log("Jobs:", jobs)}
       {currentJobs.length === 0 ? (
