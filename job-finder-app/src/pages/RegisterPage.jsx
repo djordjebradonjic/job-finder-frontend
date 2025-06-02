@@ -9,8 +9,30 @@ function RegisterPage() {
   const [surname, setSurname] = useState("");
   const navigate = useNavigate();
 
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters.";
+    }
+
+    if (!/^[A-Za-z]+$/.test(name)) {
+      newErrors.name = "Name must contain only letters.";
+    }
+
+    if (!/^[A-Za-z]+$/.test(surname)) {
+      newErrors.surname = "Surname must contain only letters.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
     try {
       const response = await axios.post("http://localhost:8080/register", {
@@ -42,6 +64,9 @@ function RegisterPage() {
             required
             className="border p-2 rounded"
           />
+          {errors.username && (
+            <p className="text-red-600 text-sm">{errors.username}</p>
+          )}
           <input
             type="password"
             placeholder="Password"
@@ -50,6 +75,9 @@ function RegisterPage() {
             required
             className="border p-2 rounded"
           />
+          {errors.password && (
+            <p className="text-red-600 text-sm">{errors.password}</p>
+          )}
           <input
             type="text"
             placeholder="Name"
@@ -58,6 +86,8 @@ function RegisterPage() {
             required
             className="border p-2 rounded"
           />
+          {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
+
           <input
             type="text"
             placeholder="Surname"
@@ -66,6 +96,10 @@ function RegisterPage() {
             required
             className="border p-2 rounded"
           />
+          {errors.surname && (
+            <p className="text-red-600 text-sm">{errors.surname}</p>
+          )}
+
           <button
             type="submit"
             className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"

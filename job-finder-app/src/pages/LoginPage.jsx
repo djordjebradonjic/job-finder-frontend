@@ -6,11 +6,36 @@ import { useAuth } from "../context/AuthContext";
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  const validateForm = () => {
+    setGeneralError("");
+    setPasswordError("");
+    setUsernameError("");
+
+    if (!username) {
+      setUsernameError("Username filed is required");
+      return false;
+    }
+    if (!password) {
+      setUsernameError("Password error is required");
+      return false;
+    } else if (password.length < 4) {
+      setPasswordError("Password must be at least 4 characters.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     try {
       const response = await axios.post("http://localhost:8080/login", {
         username,
@@ -49,6 +74,9 @@ function LoginPage() {
           className="w-full p-2 mb-3 border rounded"
           required
         />
+        {usernameError && (
+          <p className="text-red-600 text-sm mb-3">{usernameError}</p>
+        )}
         <input
           type="password"
           placeholder="Password"
@@ -57,6 +85,12 @@ function LoginPage() {
           className="w-full p-2 mb-3 border rounded"
           required
         />
+        {passwordError && (
+          <p className="text-red-600 text-sm mb-3">{passwordError}</p>
+        )}
+        {generalError && (
+          <p className="text-red-600 text-sm mb-3">{generalError}</p>
+        )}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-800"
