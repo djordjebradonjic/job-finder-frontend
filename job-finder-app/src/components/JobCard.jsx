@@ -66,6 +66,7 @@ function JobCard({ job, onClick, favorites, setFavorites }) {
         <span className="font-medium text-gray-700 dark:text-gray-200">
           Date:
         </span>{" "}
+        {job.details.expirationDate}
       </p>
     </div>
   );
