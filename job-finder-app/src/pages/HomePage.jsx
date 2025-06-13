@@ -9,7 +9,11 @@ function HomePage() {
   const [selectedSite, setSelectedSite] = useState("HelloWorld");
 
   const [jobs, setJobs] = useState([]);
-  const [filters, setFilters] = useState({ title: "", location: "" });
+  const [filters, setFilters] = useState({
+    title: "",
+    company: "",
+    keyword: "",
+  });
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,11 +27,9 @@ function HomePage() {
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
   useEffect(() => {
-    if (jobs.length > 0) {
-      setTotalPages(Math.ceil(jobs.length / jobsPerPage));
-    }
-  }, [jobs, jobsPerPage]);
-
+    setTotalPages(Math.ceil(filteredJobs.length / jobsPerPage));
+    setCurrentPage(1);
+  }, [filteredJobs]);
   useEffect(() => {
     const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(savedFavorites);
@@ -74,6 +76,29 @@ function HomePage() {
     setSelectedSite(value);
     setActiveNavBarItem(value);
   };
+  const filteredJobs = jobs.filter((job) => {
+    const titleMatch = job.title
+      .toLowerCase()
+      .includes(filters.title.toLowerCase());
+
+    const companyMatch = job.company
+      .toLowerCase()
+      .includes(filters.company.toLowerCase());
+
+    const keywordMatch = filters.keyword
+      ? job.title.toLowerCase().includes(filters.keyword.toLowerCase()) ||
+        job.company.toLowerCase().includes(filters.keyword.toLowerCase()) ||
+        (job.description &&
+          job.description.toLowerCase().includes(filters.keyword.toLowerCase()))
+      : true;
+
+    return titleMatch && companyMatch && keywordMatch;
+  });
+
+  const currentFilteredJobs = filteredJobs.slice(
+    indexOfFirstJob,
+    indexOfLastJob
+  );
 
   return (
     <div
@@ -96,10 +121,10 @@ function HomePage() {
         All jobs
       </h1>
       {console.log("Jobs:", jobs)}
-      {currentJobs.length === 0 ? (
+      {currentFilteredJobs.length === 0 ? (
         <p>No available jobs </p>
       ) : (
-        currentJobs.map((job) => (
+        currentFilteredJobs.map((job) => (
           <JobCard
             key={job.id}
             job={job}
